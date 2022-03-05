@@ -1,0 +1,36 @@
+
+const { expect } = require("chai");
+
+
+describe("Donation contract", function () {
+
+  let Token;
+  let hardhatToken;
+  let owner;
+  let addr1;
+  let addr2;
+  let addrs;
+
+
+  beforeEach(async function () {
+    Token = await ethers.getContractFactory("Donation");
+    [owner, addr1, addr2, ...addrs] = await ethers.getSigners();
+
+    hardhatToken = await Token.deploy();
+  });
+
+  describe("Deployment", function () {
+    it("Should set the right owner", async function () {
+      expect(await hardhatToken.owner()).to.equal(owner.address);
+    });
+  });
+
+  describe("Transactions", function () {
+    it("Should transfer one ether", async function () {
+		const transactionHash = await owner.sendTransaction({
+  to: "contract address",
+  value: ethers.utils.parseEther("1.0"), // Sends exactly 1.0 ether
+});;
+	});
+  });
+});
